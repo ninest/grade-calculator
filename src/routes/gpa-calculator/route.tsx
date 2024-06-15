@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/navbar";
-import { Calculator } from "@/routes/gpa-calculator/calculator";
+import { Calculator } from "./calculator-form";
 
 export function GPACalculatorRoute() {
   return (
