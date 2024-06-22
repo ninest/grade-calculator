@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { FaCaretLeft, FaCaretRight, FaChevronLeft, FaChevronRight, FaRegTrashCan } from "react-icons/fa6";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Semester,
   calculateCumGpa,
@@ -19,7 +19,7 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
-import { SelectTrigger, Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
+import { FaChevronLeft, FaChevronRight, FaRegTrashCan } from "react-icons/fa6";
 
 type Props = {
   initialSemesters: Semester[];
@@ -73,7 +73,10 @@ export function Calculator({ initialSemesters, onChange }: Props) {
         onClick={() =>
           semestersField.append({
             name: "",
-            courses: [],
+            courses: [
+              { name: "", grade: "B", credits: 4 },
+              { name: "", grade: "B", credits: 4 },
+            ],
           })
         }
         variant={"secondary"}
