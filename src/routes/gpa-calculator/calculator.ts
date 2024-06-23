@@ -48,7 +48,8 @@ export function calculateCumGpa(semesters: Semester[]) {
 }
 
 export function numCredits(courses: Course[]) {
-  return courses.reduce((sum, currentValue) => sum + currentValue.credits, 0);
+  console.log(courses.map((c) => c.credits));
+  return courses.reduce((sum, currentValue) => sum + (isNaN(currentValue.credits) ? 0 : currentValue.credits), 0);
 }
 
 export function numCreditsSemesters(semesters: Semester[]) {

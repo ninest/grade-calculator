@@ -7,6 +7,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { Calculator } from "./calculator-form";
 
 export function GPACalculatorRoute() {
+  const navigate = useNavigate();
   const { tabId } = useParams<{ tabId?: string }>();
 
   const [tabs, setTabs] = useAtom(tabsAtom);
@@ -26,17 +27,33 @@ export function GPACalculatorRoute() {
     }
   }, 300);
 
+  const onTabDelete = () => {
+    if (!currentTab) return;
+
+    const tabIndex = tabs.findIndex((tab) => tab.id === tabId);
+    const newTabs = [...tabs];
+    newTabs.splice(tabIndex, 1);
+
+    if (JSON.stringify(tabs) !== JSON.stringify(newTabs)) {
+      setTabs(newTabs);
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <TopBar currentTabId={tabId} />
 
-      <div className="p-5">
+      <div className="">
         {currentTab && (
-          <Calculator key={currentTab.id} initialSemesters={currentTab.semesters} onChange={onTabChange} />
+          <Calculator
+            key={currentTab.id}
+            initialSemesters={currentTab.semesters}
+            onChange={onTabChange}
+            onDelete={onTabDelete}
+          />
         )}
       </div>
-
-      <pre className="bg-black text-white text-xs">{JSON.stringify({ currentTab, tabs }, null, 2)}</pre>
     </>
   );
 }

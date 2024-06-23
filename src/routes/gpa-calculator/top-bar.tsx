@@ -52,21 +52,23 @@ export function TopBar({ currentTabId }: { currentTabId: undefined | string }) {
 
   return (
     <header className="px-5 py-3 border-b flex items-center gap-2">
-      {tabs.map((tab) => {
-        const isSelected = currentTabId === tab.id;
-        return (
-          <TabButton
-            key={tab.id}
-            isSelected={isSelected}
-            text={tab.name}
-            onClick={() => navigate(`/${tab.id}`)}
-            onTextChange={changeTabName}
-          />
-        );
-      })}
       <button onClick={newTab} className="px-2 py-1 border rounded-lg flex items-center">
         +
       </button>
+      <div className="flex items-center gap-2 overflow-x-auto">
+        {tabs.map((tab) => {
+          const isSelected = currentTabId === tab.id;
+          return (
+            <TabButton
+              key={tab.id}
+              isSelected={isSelected}
+              text={tab.name}
+              onClick={() => navigate(`/${tab.id}`)}
+              onTextChange={changeTabName}
+            />
+          );
+        })}
+      </div>
     </header>
   );
 }
@@ -94,6 +96,7 @@ function TabButton({
     <button
       onClick={() => onClick()}
       className={cn(
+        "flex min-h-[min-content] whitespace-nowrap", // overscroll
         "px-4 py-1 border rounded-lg",
         { "bg-gray-50": !isSelected, "bg-gray-200": isSelected },
         "flex items-center gap-2"
