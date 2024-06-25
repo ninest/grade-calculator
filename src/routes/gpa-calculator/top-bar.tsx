@@ -1,4 +1,4 @@
-import { tabsAtom } from "@/routes/gpa-calculator/use-storage";
+import { CURRENT_TAB_VERSION, tabsAtom } from "@/routes/gpa-calculator/use-storage";
 import { cn } from "@/utils/style";
 import cuid from "cuid";
 import { useAtom } from "jotai";
@@ -12,6 +12,7 @@ export function TopBar({ currentTabId }: { currentTabId: undefined | string }) {
     setTabs([
       ...tabs,
       {
+        version: CURRENT_TAB_VERSION,
         id: cuid(),
         name: "New Grades",
         semesters: [
@@ -86,8 +87,6 @@ function TabButton({
 }) {
   const setTitle = (text: null | string) => {
     if (!text || text.trim() === "") return;
-
-    console.log(text);
 
     onTextChange(text.replaceAll("\n", ""));
   };

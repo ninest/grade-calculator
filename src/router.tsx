@@ -1,5 +1,6 @@
 import { GPACalculatorRoute } from "@/routes/gpa-calculator/route";
 import { RootRoute } from "@/routes/root";
+import { ShareGradesRoute } from "@/routes/share-grades/route";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -7,7 +8,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <RootRoute />,
     children: [
-      // { path: "/", element: <CalculatorRouteRedirector /> },
+      { path: "/share/:data", element: <ShareGradesRoute /> },
       {
         path: "/:tabId?",
         element: <GPACalculatorRoute />,

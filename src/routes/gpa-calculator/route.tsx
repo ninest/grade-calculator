@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 import { Calculator } from "./calculator-form";
+import { encodeTabShareData } from "@/routes/share-grades/share";
 
 export function GPACalculatorRoute() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export function GPACalculatorRoute() {
     if (JSON.stringify(tabs) !== JSON.stringify(newTabs)) {
       setTabs(newTabs);
     }
-  }, 300);
+  }, 50);
 
   const onTabDelete = () => {
     if (!currentTab) return;
@@ -40,6 +41,14 @@ export function GPACalculatorRoute() {
     }
   };
 
+  const onShare = () => {
+    if (!currentTab) return;
+
+    const data = encodeTabShareData(currentTab);
+    const link = window.location.origin + `/share/${data}`;
+    window.prompt("Copy and share the link:", link);
+  };
+
   return (
     <>
       <TopBar currentTabId={tabId} />
@@ -51,6 +60,7 @@ export function GPACalculatorRoute() {
             initialSemesters={currentTab.semesters}
             onChange={onTabChange}
             onDelete={onTabDelete}
+            onShare={onShare}
           />
         )}
       </div>

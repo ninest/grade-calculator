@@ -1,8 +1,7 @@
-import { GPACalculatorRoute } from "@/routes/gpa-calculator/route.tsx";
+import { Router } from "@/router";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { Router } from "@/router";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

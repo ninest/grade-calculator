@@ -11,18 +11,20 @@ import {
 } from "@/routes/gpa-calculator/calculator";
 import { useEffect } from "react";
 import { Controller, UseControllerProps, UseFormRegister, UseFormWatch, useFieldArray, useForm } from "react-hook-form";
+import { FaShareAlt } from "react-icons/fa";
 
 type Props = {
   initialSemesters: Semester[];
   onChange: (semesters: Semester[]) => void;
   onDelete: () => void;
+  onShare: () => void;
 };
 
 type CalculatorForm = {
   semesters: Semester[];
 };
 
-export function Calculator({ initialSemesters, onChange, onDelete }: Props) {
+export function Calculator({ initialSemesters, onChange, onDelete, onShare }: Props) {
   const form = useForm<CalculatorForm>({
     defaultValues: { semesters: initialSemesters },
   });
@@ -45,13 +47,18 @@ export function Calculator({ initialSemesters, onChange, onDelete }: Props) {
           {numSemesters} semesters, {credits} credits
         </div>
 
-        <div>
-          <span className="font-black">{gpa}</span>/4
+        <div className="flex items-center gap-2">
+          <div>
+            <span className="font-black">{gpa}</span>/4
+          </div>
+          <Button onClick={onShare} variant={"secondary"} size={"icon"}>
+            <FaShareAlt />
+          </Button>
         </div>
       </div>
       <div className="p-5">
         <div className="space-y-6">
-          {semestersField.fields.map((semesterField, i) => {
+          {semestersField.fields.map((_semesterField, i) => {
             const semesterArrayPrefix = `semesters.${i}` as const;
             return (
               <div key={i} className="border rounded-xl p-5">
@@ -127,7 +134,7 @@ function CoursesListForm({
 
   return (
     <div className="space-y-4">
-      {coursesField.fields.map((field, i) => {
+      {coursesField.fields.map((_field, i) => {
         return (
           <div key={i}>
             <div className="flex flex-col md:flex-row md:items-center space-y-1 md:space-y-0 md:space-x-2">
